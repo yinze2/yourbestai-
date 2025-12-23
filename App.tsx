@@ -2,7 +2,6 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Header from './components/Header';
 import ToolCard from './components/ToolCard';
-import VIPPricing from './components/VIPPricing';
 import SubmitToolModal from './components/SubmitToolModal';
 import ToolDetail from './components/ToolDetail';
 import AdminDashboard from './components/AdminDashboard';
@@ -14,7 +13,7 @@ import { fetchLatestAINews } from './services/geminiService';
 
 const App: React.FC = () => {
   const [currentLang, setCurrentLang] = useState<Language>('zh');
-  const [activeView, setActiveView] = useState<'home' | 'pricing' | 'submit' | 'admin' | 'news'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'submit' | 'admin' | 'news'>('home');
   const [tools, setTools] = useState<AITool[]>(INITIAL_TOOLS);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All');
@@ -95,7 +94,6 @@ const App: React.FC = () => {
       />
 
       <div className="flex-1 flex overflow-hidden">
-        {/* SIDEBAR: Sticky, High-Contrast Categories */}
         {activeView === 'home' && (
           <aside className="hidden lg:block w-[300px] bg-white border-r border-slate-200 overflow-y-auto sticky top-0 h-[calc(100vh-64px)] scrollbar-hide">
             <div className="p-8">
@@ -140,11 +138,9 @@ const App: React.FC = () => {
           </aside>
         )}
 
-        {/* MAIN GRID: 3 Columns Right-Side */}
         <main className="flex-1 overflow-y-auto">
           {activeView === 'home' && (
             <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-10">
-              {/* Header section in main content */}
               <div className="mb-12 flex flex-col xl:flex-row xl:items-end justify-between gap-8">
                 <div>
                   <div className="flex items-center gap-4 mb-3">
@@ -179,7 +175,6 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              {/* Grid: High density 3-column grid */}
               {filteredAndSortedTools.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                   {filteredAndSortedTools.map((tool, idx) => (
@@ -208,7 +203,6 @@ const App: React.FC = () => {
             </div>
           )}
 
-          {activeView === 'pricing' && <VIPPricing currentLang={currentLang} />}
           {activeView === 'news' && <NewsSection currentLang={currentLang} news={news} loading={newsLoading} onRefresh={() => refreshNews(true)} lastUpdated={lastNewsFetch ? new Date(lastNewsFetch).toLocaleTimeString() : null} />}
           {activeView === 'admin' && <AdminDashboard currentLang={currentLang} pendingTools={tools.filter(t => t.status === 'pending')} onApprove={(id) => setTools(prev => prev.map(t => t.id === id ? {...t, status: 'approved'} : t))} onReject={(id) => setTools(prev => prev.filter(t => t.id !== id))} />}
         </main>

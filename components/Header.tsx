@@ -4,12 +4,12 @@ import { translations, Language } from '../translations';
 import { NewsItem } from '../types';
 
 interface HeaderProps {
-  onNavClick: (view: 'home' | 'pricing' | 'submit' | 'admin' | 'news') => void;
+  onNavClick: (view: 'home' | 'submit' | 'admin' | 'news') => void;
   activeView: string;
   currentLang: Language;
   onLanguageChange: (lang: Language) => void;
   onSearch: (term: string) => void;
-  news: NewsItem[]; // 新增新闻数据传入
+  news: NewsItem[];
 }
 
 const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, onLanguageChange, onSearch, news }) => {
@@ -17,7 +17,6 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
   const [showSearch, setShowSearch] = useState(false);
   const [tickerIndex, setTickerIndex] = useState(0);
 
-  // 走马灯定时器
   useEffect(() => {
     if (news.length > 0) {
       const interval = setInterval(() => {
@@ -30,14 +29,12 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
   const navItems = [
     { id: 'home', label: t.explore, icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg> },
     { id: 'news', label: t.news, icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h4m-4 4h8m-8 4h8" /></svg>, badge: true },
-    { id: 'pricing', label: t.pricing, icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
     { id: 'submit', label: t.submit, icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
-    { id: 'admin', label: t.admin, icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg> },
+    { id: 'admin', label: t.admin, icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924-1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg> },
   ];
 
   return (
     <div className="sticky top-0 z-50">
-      {/* 顶部新闻走马灯 Ticker */}
       {news.length > 0 && (
         <div className="bg-slate-900 text-white h-9 flex items-center overflow-hidden border-b border-white/5">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between text-[11px] font-bold tracking-tight">
@@ -65,10 +62,6 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
                 {news[tickerIndex].title}
               </a>
             </div>
-            <div className="hidden sm:flex items-center gap-4 shrink-0 ml-4">
-              <span className="text-slate-500">{news[tickerIndex].source}</span>
-              <span className="text-slate-600">{news[tickerIndex].publishedAt}</span>
-            </div>
           </div>
         </div>
       )}
@@ -76,7 +69,6 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
       <header className="bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
-            {/* Logo Section */}
             <div 
               className="flex items-center cursor-pointer group shrink-0"
               onClick={() => onNavClick('home')}
@@ -92,7 +84,6 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
               </div>
             </div>
 
-            {/* Desktop Functional Navigation */}
             <nav className="hidden lg:flex items-center bg-slate-100/50 p-1 rounded-2xl mx-4">
               {navItems.map((item) => (
                 <button 
@@ -116,9 +107,7 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
               ))}
             </nav>
 
-            {/* Action Bar */}
             <div className="flex items-center space-x-2 md:space-x-3">
-              {/* Global Quick Search Toggle */}
               <div className="relative">
                  <button 
                   onClick={() => setShowSearch(!showSearch)}
@@ -141,7 +130,6 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
                  )}
               </div>
 
-              {/* Language Switcher */}
               <div className="relative group">
                 <button className="flex items-center gap-1.5 p-2 md:p-2.5 text-slate-500 hover:bg-slate-100 rounded-xl transition-all">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -155,14 +143,8 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
                 </div>
               </div>
 
-              <button className="hidden sm:block text-slate-700 font-bold text-sm px-4 py-2 hover:bg-slate-100 rounded-xl transition-all">
+              <button className="text-slate-700 font-bold text-sm px-4 py-2 hover:bg-slate-100 rounded-xl transition-all">
                 {t.login}
-              </button>
-              <button 
-                 onClick={() => onNavClick('pricing')}
-                 className="bg-slate-900 text-white px-4 md:px-5 py-2 md:py-2.5 rounded-xl text-xs md:text-sm font-black shadow-lg shadow-slate-200 hover:bg-black hover:scale-105 transition-all active:scale-95 shrink-0"
-              >
-                {t.getVip}
               </button>
             </div>
           </div>

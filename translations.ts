@@ -3,12 +3,10 @@ export const translations = {
   en: {
     nav: {
       explore: "Explore Tools",
-      pricing: "VIP Pricing",
       submit: "Submit Tool",
       admin: "Admin",
       news: "AI News",
-      login: "Log In",
-      getVip: "Get VIP"
+      login: "Log In"
     },
     news: {
       title: "AI Trends & News",
@@ -40,32 +38,6 @@ export const translations = {
       save: "Save",
       saved: "Saved"
     },
-    pricing: {
-      title: "VIP Membership",
-      subtitle: "Unlock professional features and priority access to the latest AI models.",
-      tiers: {
-        basic: "Free",
-        premium: "Pro VIP",
-        dev: "Developer"
-      },
-      features: {
-        browse: "Unlimited browsing",
-        info: "Basic tool info",
-        partner: "Partner discounts",
-        access50: "Access 50+ Premium Tools",
-        quota: "Higher API quotas",
-        priority: "Priority support",
-        exclusive: "Exclusive AI insights",
-        list5: "List up to 5 tools",
-        featured: "Featured placement",
-        analytics: "Advanced analytics"
-      },
-      buttons: {
-        current: "Current Plan",
-        getNow: "Upgrade Now",
-        join: "Join as Developer"
-      }
-    },
     submit: {
       title: "Submit a Tool",
       description: "Share an amazing AI tool with our global community.",
@@ -80,16 +52,44 @@ export const translations = {
       totalReviews: "reviews",
       about: "About",
       visit: "Visit Website",
-      tryVip: "Try with VIP",
       reviews: "User Reviews",
       noReviews: "No reviews yet. Be the first to share your experience!",
       leaveRating: "Leave a Rating",
       experience: "Share your experience with this tool...",
       analyzing: "Analyzing Sentiment...",
       post: "Post Review",
+      // Fix: Added missing translation keys for VIP/Promotion sections
+      tryVip: "Try VIP",
       saveOn: "Save on",
-      vipPromo: "Get exclusive discounts and early access with our VIP program.",
+      vipPromo: "Upgrade to VIP to unlock exclusive discounts and priority access to all AI tools.",
       upgrade: "Upgrade to VIP"
+    },
+    // Fix: Added missing pricing section translation
+    pricing: {
+      title: "Unlock Global AI VIP Power",
+      subtitle: "Get priority access, exclusive quotas, and premium features for one simple price.",
+      tiers: {
+        basic: "Explorer",
+        premium: "AI VIP",
+        dev: "Creator"
+      },
+      features: {
+        browse: "Browse all tools",
+        info: "Detailed insights",
+        partner: "Partner discounts",
+        access50: "Access to 50+ SOTA models",
+        quota: "Unlimited monthly quota",
+        priority: "Zero-latency priority access",
+        exclusive: "Exclusive Beta features",
+        list5: "List up to 5 tools",
+        featured: "Featured placement",
+        analytics: "Traffic analytics"
+      },
+      buttons: {
+        current: "Current Plan",
+        getNow: "Start VIP Now",
+        join: "Join as Developer"
+      }
     },
     admin: {
       title: "Admin Dashboard",
@@ -103,18 +103,15 @@ export const translations = {
       },
       reject: "Reject",
       approve: "Approve"
-    },
-    footer: {}
+    }
   },
   zh: {
     nav: {
       explore: "探索工具",
-      pricing: "VIP定价",
       submit: "提交工具",
       admin: "管理后台",
       news: "AI资讯",
-      login: "登录",
-      getVip: "获取VIP"
+      login: "登录"
     },
     news: {
       title: "AI 舆情与新闻",
@@ -146,32 +143,6 @@ export const translations = {
       save: "收藏",
       saved: "已收藏"
     },
-    pricing: {
-      title: "VIP 会员计划",
-      subtitle: "解锁专业功能，优先访问最新的 AI 模型和工具。",
-      tiers: {
-        basic: "基础版",
-        premium: "高级 VIP",
-        dev: "开发者"
-      },
-      features: {
-        browse: "无限浏览",
-        info: "基础工具信息",
-        partner: "合作伙伴折扣",
-        access50: "访问 50+ 高级工具",
-        quota: "更高的 API 额度",
-        priority: "优先客户支持",
-        exclusive: "独家 AI 洞察",
-        list5: "最多上架 5 个工具",
-        featured: "首页推荐展示",
-        analytics: "高级数据分析"
-      },
-      buttons: {
-        current: "当前方案",
-        getNow: "立即升级",
-        join: "加入开发者计划"
-      }
-    },
     submit: {
       title: "提交新工具",
       description: "向全球社区分享优秀的 AI 工具。",
@@ -186,16 +157,44 @@ export const translations = {
       totalReviews: "条评价",
       about: "关于",
       visit: "跳转官网",
-      tryVip: "VIP 试用",
       reviews: "用户评价",
       noReviews: "暂无评价。快来分享你的使用体验吧！",
       leaveRating: "发表评价",
       experience: "分享你对该工具的使用体验...",
       analyzing: "正在分析情绪...",
       post: "发布评价",
+      // Fix: Added missing translation keys for VIP/Promotion sections
+      tryVip: "试用 VIP",
       saveOn: "节省费用",
-      vipPromo: "加入 VIP 计划，获取独家折扣和早期访问权限。",
-      upgrade: "升级到 VIP"
+      vipPromo: "升级到 VIP 以解锁独家折扣并优先访问所有 AI 工具。",
+      upgrade: "立即升级 VIP"
+    },
+    // Fix: Added missing pricing section translation
+    pricing: {
+      title: "解锁全球 AI VIP 权限",
+      subtitle: "一站式获取优先访问权限、专属配额及高级功能。",
+      tiers: {
+        basic: "探索者",
+        premium: "AI VIP 会员",
+        dev: "创作者"
+      },
+      features: {
+        browse: "浏览所有工具",
+        info: "详细工具洞察",
+        partner: "合作伙伴折扣",
+        access50: "访问 50+ 顶级模型",
+        quota: "每月无限使用配额",
+        priority: "零延迟优先访问",
+        exclusive: "独家测试功能",
+        list5: "列出多达 5 个工具",
+        featured: "首页置顶展示",
+        analytics: "流量分析报告"
+      },
+      buttons: {
+        current: "当前计划",
+        getNow: "立即开启 VIP",
+        join: "加入开发者计划"
+      }
     },
     admin: {
       title: "管理后台",
@@ -209,8 +208,7 @@ export const translations = {
       },
       reject: "驳回",
       approve: "通过"
-    },
-    footer: {}
+    }
   }
 };
 export type Language = 'en' | 'zh';
