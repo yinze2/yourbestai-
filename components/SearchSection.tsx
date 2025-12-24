@@ -17,7 +17,8 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch, onCategoryFilte
   const [aiTip, setAiTip] = useState<string | null>(null);
   const [loadingAi, setLoadingAi] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const t = translations[currentLang].hero;
+  const t = translations[currentLang];
+  const heroT = t.hero;
 
   const handleAiAsk = async () => {
     if (!query) return;
@@ -39,10 +40,10 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch, onCategoryFilte
     <div className="bg-gradient-to-b from-indigo-50 to-white pt-16 pb-20 px-4">
       <div className="max-w-6xl mx-auto text-center">
         <h1 className="text-4xl md:text-7xl font-black text-slate-900 mb-6 tracking-tighter">
-          {t.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">{t.titleAccent}</span>
+          {heroT.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">{heroT.titleAccent}</span>
         </h1>
         <p className="text-lg md:text-xl text-slate-500 mb-12 max-w-3xl mx-auto font-medium">
-          {t.subtitle}
+          {heroT.subtitle}
         </p>
         
         <div className="relative max-w-3xl mx-auto mb-16">
@@ -54,7 +55,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch, onCategoryFilte
           <input
             type="text"
             className="block w-full pl-14 pr-32 py-5 bg-white border-2 border-slate-100 rounded-3xl shadow-2xl focus:ring-8 focus:ring-indigo-50 focus:border-indigo-500 transition-all text-slate-900 text-lg font-bold placeholder:text-slate-300"
-            placeholder={t.placeholder}
+            placeholder={heroT.placeholder}
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -66,7 +67,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch, onCategoryFilte
             disabled={loadingAi}
             className="absolute right-3 top-3 bottom-3 bg-indigo-600 text-white px-6 rounded-2xl font-black text-sm uppercase hover:bg-indigo-700 transition-all active:scale-95 shadow-lg shadow-indigo-100 disabled:opacity-50"
           >
-            {loadingAi ? '...' : t.aiSuggest}
+            {loadingAi ? '...' : heroT.aiSuggest}
           </button>
         </div>
 
@@ -79,7 +80,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch, onCategoryFilte
                   </svg>
                </div>
                <div className="flex-1">
-                 <p className="text-indigo-900 text-sm font-black uppercase tracking-wider mb-2">{t.aiAssistant}</p>
+                 <p className="text-indigo-900 text-sm font-black uppercase tracking-wider mb-2">{heroT.aiAssistant}</p>
                  <p className="text-slate-700 text-md leading-relaxed font-medium">{aiTip}</p>
                  <button onClick={() => setAiTip(null)} className="mt-4 text-indigo-600 text-xs font-black uppercase hover:underline">
                     {currentLang === 'zh' ? '好的，知道了' : 'Got it'}
@@ -106,7 +107,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch, onCategoryFilte
                     : 'bg-white text-slate-500 border-slate-100 hover:border-indigo-200'
                 }`}
               >
-                {t.all}
+                {heroT.all}
               </button>
               {CATEGORIES.map(cat => (
                 <button
@@ -118,7 +119,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({ onSearch, onCategoryFilte
                       : 'bg-white text-slate-500 border-slate-100 hover:border-indigo-200'
                   }`}
                 >
-                  {cat}
+                  {(t.categoryNames as any)[cat] || cat}
                 </button>
               ))}
             </div>
