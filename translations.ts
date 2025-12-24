@@ -4,10 +4,25 @@ export const translations = {
     nav: {
       explore: "Explore Tools",
       forums: "AI Forums",
+      edu: "AI Education",
       submit: "Submit Tool",
       admin: "Admin",
       news: "AI News",
       login: "Log In"
+    },
+    edu: {
+      title: "AI Learning Hub",
+      subtitle: "Master the future with world-class AI courses, certifications, and academic programs.",
+      ranking: "Skill Ranking",
+      learned: "learned",
+      categories: {
+        'All': 'All Resources',
+        'Online Courses': 'Online Courses',
+        'Professional Certs': 'Industry Certifications',
+        'Academic Degrees': 'Academic Degrees',
+        'Technical Skills': 'Core Technical Skills',
+        'China Special': 'China High-Quality'
+      }
     },
     forum: {
       title: "Global AI Hubs",
@@ -53,10 +68,9 @@ export const translations = {
       'Hardware AI': 'Hardware AI',
       'Enterprise AI': 'Enterprise AI'
     },
-    // Fix: Added missing news translation for English
     news: {
       title: "AI Insights & News",
-      subtitle: "Real-time aggregation of the latest updates from OpenAI, Google, Anthropic, and other leading AI research entities.",
+      subtitle: "Real-time aggregation of the latest updates from leading AI research entities.",
       lastUpdated: "Last Updated",
       readMore: "Read More",
       loading: "Gathering latest AI news...",
@@ -153,10 +167,25 @@ export const translations = {
     nav: {
       explore: "探索工具",
       forums: "AI 论坛",
+      edu: "AI 教育",
       submit: "提交工具",
       admin: "管理后台",
       news: "AI资讯",
       login: "登录"
+    },
+    edu: {
+      title: "AI 学习枢纽",
+      subtitle: "汇聚全球顶尖 AI 课程、权威认证与名校学位，助你掌握未来。",
+      ranking: "技能排行",
+      learned: "人在学",
+      categories: {
+        'All': '全部资源',
+        'Online Courses': '在线精品课',
+        'Professional Certs': '职业认证',
+        'Academic Degrees': '本硕博学位',
+        'Technical Skills': '核心实操技能',
+        'China Special': '国内优质资源'
+      }
     },
     forum: {
       title: "全球 AI 社区合集",

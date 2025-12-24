@@ -16,6 +16,13 @@ export type ForumCategory =
   | 'Industry' 
   | 'Safety & Ethics';
 
+export type EduCategory = 
+  | 'Online Courses' 
+  | 'Professional Certs' 
+  | 'Academic Degrees' 
+  | 'Technical Skills' 
+  | 'China Special';
+
 export interface Review {
   id: string;
   user: string;
@@ -59,6 +66,25 @@ export interface AIForum {
   origin: 'Global' | 'China';
   tags: string[];
   status: 'approved' | 'pending';
+}
+
+export interface AIEduItem {
+  id: string;
+  name: string;
+  provider: string;
+  description: string;
+  category: EduCategory;
+  level: 'Beginner' | 'Intermediate' | 'Advanced';
+  url: string;
+  imageUrl: string;
+  rating: number;
+  reviewCount: number;
+  learnedCount: number;
+  favoritesCount: number;
+  origin: 'Global' | 'China';
+  tags: string[];
+  status: 'approved' | 'pending';
+  reviews: Review[];
 }
 
 export interface NewsItem {

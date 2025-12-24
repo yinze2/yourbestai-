@@ -7,22 +7,28 @@ import SubmitToolModal from './components/SubmitToolModal';
 import ToolDetail from './components/ToolDetail';
 import NewsSection from './components/NewsSection';
 import ForumSection from './components/ForumSection';
-import { INITIAL_TOOLS, CATEGORIES, INITIAL_FORUMS } from './constants';
-import { AITool, Category, NewsItem, AIForum } from './types';
+import EduSection from './components/EduSection';
+import { INITIAL_TOOLS, CATEGORIES, INITIAL_FORUMS, INITIAL_EDU, EDU_CATEGORIES } from './constants';
+import { AITool, Category, NewsItem, AIForum, AIEduItem, EduCategory } from './types';
 import { Language, translations } from './translations';
 import { fetchLatestAINews } from './services/geminiService';
 
 const App: React.FC = () => {
   const [currentLang, setCurrentLang] = useState<Language>('zh');
-  const [activeView, setActiveView] = useState<'home' | 'submit' | 'news' | 'forums'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'submit' | 'news' | 'forums' | 'edu'>('home');
   const [tools, setTools] = useState<AITool[]>(INITIAL_TOOLS);
   const [forums, setForums] = useState<AIForum[]>(INITIAL_FORUMS);
+  const [eduItems, setEduItems] = useState<AIEduItem[]>(INITIAL_EDU);
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All');
+  const [selectedEduCategory, setSelectedEduCategory] = useState<EduCategory | 'All'>('All');
+  
   const [selectedTool, setSelectedTool] = useState<AITool | null>(null);
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [forumFavorites, setForumFavorites] = useState<string[]>([]);
+  const [eduFavorites, setEduFavorites] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<'score' | 'popular' | 'clicks'>('score');
 
   const [news, setNews] = useState<NewsItem[]>([]);
@@ -41,6 +47,9 @@ const App: React.FC = () => {
     
     const savedForumFavs = localStorage.getItem('ai_hub_forum_favs');
     if (savedForumFavs) setForumFavorites(JSON.parse(savedForumFavs));
+
+    const savedEduFavs = localStorage.getItem('ai_hub_edu_favs');
+    if (savedEduFavs) setEduFavorites(JSON.parse(savedEduFavs));
   }, []);
 
   const handleFavorite = (id: string) => {
@@ -62,6 +71,18 @@ const App: React.FC = () => {
       localStorage.setItem('ai_hub_forum_favs', JSON.stringify(newFavs));
       setForums(prevForums => prevForums.map(f => 
         f.id === id ? { ...f, favoritesCount: f.favoritesCount + (isAlreadyFav ? -1 : 1) } : f
+      ));
+      return newFavs;
+    });
+  };
+
+  const handleEduFavorite = (id: string) => {
+    setEduFavorites(prev => {
+      const isAlreadyFav = prev.includes(id);
+      const newFavs = isAlreadyFav ? prev.filter(f => f !== id) : [...prev, id];
+      localStorage.setItem('ai_hub_edu_favs', JSON.stringify(newFavs));
+      setEduItems(prevEdu => prevEdu.map(e => 
+        e.id === id ? { ...e, favoritesCount: e.favoritesCount + (isAlreadyFav ? -1 : 1) } : e
       ));
       return newFavs;
     });
@@ -157,6 +178,54 @@ const App: React.FC = () => {
           </aside>
         )}
 
+        {/* AI Education 侧边栏 */}
+        {activeView === 'edu' && (
+          <aside className="hidden lg:block w-[280px] bg-white border-r border-slate-200 overflow-y-auto sticky top-0 h-[calc(100vh-64px)] scrollbar-hide shrink-0">
+            <div className="p-6">
+              <div className="mb-6 flex items-center gap-3">
+                 <div className="w-1 h-5 bg-emerald-500 rounded-full"></div>
+                 <h3 className="text-xs font-black uppercase text-slate-900 tracking-[0.2em]">{currentLang === 'zh' ? '学习路径' : 'LEARNING PATHS'}</h3>
+              </div>
+              <nav className="space-y-1">
+                <button
+                  onClick={() => setSelectedEduCategory('All')}
+                  className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center justify-between group ${
+                    selectedEduCategory === 'All' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-100' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <svg className={`w-4 h-4 ${selectedEduCategory === 'All' ? 'text-emerald-200' : 'text-slate-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                    <span>{t.edu.categories.All}</span>
+                  </div>
+                  <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-md ${selectedEduCategory === 'All' ? 'bg-white/20' : 'bg-slate-100'}`}>
+                    {eduItems.length}
+                  </span>
+                </button>
+                {EDU_CATEGORIES.map(cat => {
+                  const count = eduItems.filter(item => item.category === cat).length;
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedEduCategory(cat)}
+                      className={`w-full text-left px-4 py-3 rounded-xl text-xs font-bold transition-all flex items-center justify-between group ${
+                        selectedEduCategory === cat ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-100' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 truncate pr-2">
+                         <span className={`w-1 h-1 rounded-full transition-all ${selectedEduCategory === cat ? 'bg-white' : 'bg-slate-200 group-hover:bg-emerald-400'}`}></span>
+                         <span className="truncate">{(t.edu.categories as any)[cat] || cat}</span>
+                      </div>
+                      <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-md shrink-0 ${selectedEduCategory === cat ? 'bg-white/20' : 'bg-slate-100'}`}>
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+          </aside>
+        )}
+
         <main className="flex-1 overflow-y-auto">
           {activeView === 'home' && (
             <div className="flex flex-col">
@@ -223,6 +292,14 @@ const App: React.FC = () => {
           )}
 
           {activeView === 'forums' && <ForumSection currentLang={currentLang} forums={forums} onFavorite={handleForumFavorite} favorites={forumFavorites} />}
+          {activeView === 'edu' && (
+            <EduSection 
+              currentLang={currentLang} 
+              eduItems={eduItems.filter(item => selectedEduCategory === 'All' || item.category === selectedEduCategory)} 
+              onFavorite={handleEduFavorite} 
+              favorites={eduFavorites} 
+            />
+          )}
           {activeView === 'news' && <NewsSection currentLang={currentLang} news={news} loading={newsLoading} onRefresh={() => refreshNews(true)} lastUpdated={lastNewsFetch ? new Date(lastNewsFetch).toLocaleTimeString() : null} />}
         </main>
       </div>
