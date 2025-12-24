@@ -16,6 +16,35 @@ export const translations = {
       loading: "Fetching latest AI updates...",
       refresh: "Refresh Now"
     },
+    categoryNames: {
+      'General LLM': 'General LLM',
+      'AI Search': 'AI Search',
+      'Image Gen': 'Image Generation',
+      'Video Gen': 'Video Generation',
+      'Audio & Music': 'Audio & Music',
+      'Coding AI': 'Coding AI',
+      'Web Generation': 'Web Generation',
+      'PPT & Slides': 'PPT & Slides',
+      'Excel & Data': 'Excel & Data',
+      'Document AI': 'Document AI',
+      'Task Agents': 'Task Agents',
+      'Productivity': 'Productivity',
+      'Research': 'Research',
+      'Marketing': 'Marketing',
+      'Writing': 'Writing',
+      'Design & UI': 'Design & UI',
+      'Education': 'Education',
+      'Translation': 'Translation',
+      'Finance': 'Finance',
+      'Legal': 'Legal',
+      'Medical': 'Medical',
+      'Agent Frameworks': 'Agent Frameworks',
+      'Character & Social': 'Character & Social',
+      'Developer Tools': 'Developer Tools',
+      'Gaming AI': 'Gaming AI',
+      'Hardware AI': 'Hardware AI',
+      'Enterprise AI': 'Enterprise AI'
+    },
     hero: {
       title: "Discover the Future of",
       titleAccent: "AI Tools",
@@ -58,13 +87,11 @@ export const translations = {
       experience: "Share your experience with this tool...",
       analyzing: "Analyzing Sentiment...",
       post: "Post Review",
-      // Fix: Added missing translation keys for VIP/Promotion sections
       tryVip: "Try VIP",
       saveOn: "Save on",
       vipPromo: "Upgrade to VIP to unlock exclusive discounts and priority access to all AI tools.",
       upgrade: "Upgrade to VIP"
     },
-    // Fix: Added missing pricing section translation
     pricing: {
       title: "Unlock Global AI VIP Power",
       subtitle: "Get priority access, exclusive quotas, and premium features for one simple price.",
@@ -112,6 +139,35 @@ export const translations = {
       admin: "管理后台",
       news: "AI资讯",
       login: "登录"
+    },
+    categoryNames: {
+      'General LLM': '通用大模型',
+      'AI Search': 'AI 搜索',
+      'Image Gen': '图像生成',
+      'Video Gen': '视频生成',
+      'Audio & Music': '音频与音乐',
+      'Coding AI': 'AI 编程',
+      'Web Generation': '网页生成',
+      'PPT & Slides': 'PPT 与演示',
+      'Excel & Data': 'Excel 与数据',
+      'Document AI': '文档 AI',
+      'Task Agents': '任务智能体',
+      'Productivity': '生产力工具',
+      'Research': '学术科研',
+      'Marketing': '市场营销',
+      'Writing': '写作辅助',
+      'Design & UI': '设计与 UI',
+      'Education': '教育学习',
+      'Translation': '翻译工具',
+      'Finance': '金融理财',
+      'Legal': '法律助手',
+      'Medical': '医疗健康',
+      'Agent Frameworks': '智能体框架',
+      'Character & Social': '角色与社交',
+      'Developer Tools': '开发者工具',
+      'Gaming AI': '游戏 AI',
+      'Hardware AI': 'AI 硬件',
+      'Enterprise AI': '企业级 AI'
     },
     news: {
       title: "AI 舆情与新闻",
@@ -163,13 +219,11 @@ export const translations = {
       experience: "分享你对该工具的使用体验...",
       analyzing: "正在分析情绪...",
       post: "发布评价",
-      // Fix: Added missing translation keys for VIP/Promotion sections
       tryVip: "试用 VIP",
       saveOn: "节省费用",
       vipPromo: "升级到 VIP 以解锁独家折扣并优先访问所有 AI 工具。",
       upgrade: "立即升级 VIP"
     },
-    // Fix: Added missing pricing section translation
     pricing: {
       title: "解锁全球 AI VIP 权限",
       subtitle: "一站式获取优先访问权限、专属配额及高级功能。",

@@ -4,7 +4,7 @@ import { translations, Language } from '../translations';
 import { NewsItem } from '../types';
 
 interface HeaderProps {
-  onNavClick: (view: 'home' | 'submit' | 'admin' | 'news') => void;
+  onNavClick: (view: 'home' | 'submit' | 'news') => void;
   activeView: string;
   currentLang: Language;
   onLanguageChange: (lang: Language) => void;
@@ -30,7 +30,6 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
     { id: 'home', label: t.explore, icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg> },
     { id: 'news', label: t.news, icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h4m-4 4h8m-8 4h8" /></svg>, badge: true },
     { id: 'submit', label: t.submit, icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
-    { id: 'admin', label: t.admin, icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924-1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg> },
   ];
 
   return (
@@ -44,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                 </span>
-                LIVE PULSE
+                AI INSIGHTS
               </span>
               <div className="h-4 w-px bg-slate-700 mx-1 shrink-0"></div>
               <a 
@@ -80,7 +79,7 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
               </div>
               <div className="ml-3 hidden sm:block">
                 <span className="block text-lg font-black text-slate-900 leading-none tracking-tighter">AI HUB</span>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Global Directory</span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Global Encyclopedia</span>
               </div>
             </div>
 
@@ -123,7 +122,7 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
                         autoFocus
                         type="text"
                         className="w-full px-4 py-3 bg-slate-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-indigo-500"
-                        placeholder="Quick search AI tools..."
+                        placeholder="Search all AI tools & agents..."
                         onChange={(e) => onSearch(e.target.value)}
                       />
                    </div>
@@ -143,7 +142,7 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, activeView, currentLang, on
                 </div>
               </div>
 
-              <button className="text-slate-700 font-bold text-sm px-4 py-2 hover:bg-slate-100 rounded-xl transition-all">
+              <button className="text-white bg-indigo-600 font-bold text-sm px-5 py-2 hover:bg-indigo-700 rounded-xl transition-all shadow-md">
                 {t.login}
               </button>
             </div>

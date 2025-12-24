@@ -4,7 +4,6 @@ import Header from './components/Header';
 import ToolCard from './components/ToolCard';
 import SubmitToolModal from './components/SubmitToolModal';
 import ToolDetail from './components/ToolDetail';
-import AdminDashboard from './components/AdminDashboard';
 import NewsSection from './components/NewsSection';
 import { INITIAL_TOOLS, CATEGORIES } from './constants';
 import { AITool, Category, NewsItem } from './types';
@@ -13,7 +12,7 @@ import { fetchLatestAINews } from './services/geminiService';
 
 const App: React.FC = () => {
   const [currentLang, setCurrentLang] = useState<Language>('zh');
-  const [activeView, setActiveView] = useState<'home' | 'submit' | 'admin' | 'news'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'submit' | 'news'>('home');
   const [tools, setTools] = useState<AITool[]>(INITIAL_TOOLS);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All');
@@ -99,7 +98,7 @@ const App: React.FC = () => {
             <div className="p-8">
               <div className="mb-8 flex items-center gap-3">
                  <div className="w-1.5 h-6 bg-indigo-600 rounded-full"></div>
-                 <h3 className="text-xs font-black uppercase text-slate-900 tracking-[0.3em]">{currentLang === 'zh' ? '分类导航' : 'COLLECTIONS'}</h3>
+                 <h3 className="text-xs font-black uppercase text-slate-900 tracking-[0.3em]">{currentLang === 'zh' ? '全部分类' : 'COLLECTIONS'}</h3>
               </div>
               <nav className="space-y-1.5">
                 <button
@@ -116,23 +115,26 @@ const App: React.FC = () => {
                     {tools.length}
                   </span>
                 </button>
-                {CATEGORIES.map(cat => (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`w-full text-left px-5 py-3.5 rounded-2xl text-[13px] font-bold transition-all flex items-center justify-between group ${
-                      selectedCategory === cat ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-100' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 truncate pr-2">
-                       <span className={`w-1.5 h-1.5 rounded-full transition-all ${selectedCategory === cat ? 'bg-white' : 'bg-slate-200 group-hover:bg-indigo-400'}`}></span>
-                       <span className="truncate">{cat}</span>
-                    </div>
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full shrink-0 ${selectedCategory === cat ? 'bg-white/20' : 'bg-slate-100'}`}>
-                      {tools.filter(tool => tool.category === cat).length}
-                    </span>
-                  </button>
-                ))}
+                {CATEGORIES.map(cat => {
+                  const count = tools.filter(tool => tool.category === cat).length;
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`w-full text-left px-5 py-3.5 rounded-2xl text-[13px] font-bold transition-all flex items-center justify-between group ${
+                        selectedCategory === cat ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-100' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 truncate pr-2">
+                         <span className={`w-1.5 h-1.5 rounded-full transition-all ${selectedCategory === cat ? 'bg-white' : 'bg-slate-200 group-hover:bg-indigo-400'}`}></span>
+                         <span className="truncate">{(t.categoryNames as any)[cat] || cat}</span>
+                      </div>
+                      <span className={`text-[10px] font-black px-2 py-0.5 rounded-full shrink-0 ${selectedCategory === cat ? 'bg-white/20' : 'bg-slate-100'}`}>
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
               </nav>
             </div>
           </aside>
@@ -149,7 +151,7 @@ const App: React.FC = () => {
                      </span>
                   </div>
                   <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter mb-4">
-                    {selectedCategory === 'All' ? (currentLang === 'zh' ? '全明星 AI 工具箱' : 'World-Class AI Hub') : selectedCategory}
+                    {selectedCategory === 'All' ? (currentLang === 'zh' ? 'AI 发现大厅' : 'AI Discovery Hub') : ((t.categoryNames as any)[selectedCategory] || selectedCategory)}
                   </h2>
                   <p className="text-slate-500 font-medium max-w-2xl">
                     {t.hero.subtitle}
@@ -176,7 +178,7 @@ const App: React.FC = () => {
               </div>
 
               {filteredAndSortedTools.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 pb-20">
                   {filteredAndSortedTools.map((tool, idx) => (
                     <div key={tool.id} className="animate-in fade-in slide-in-from-bottom-6 duration-700 fill-mode-both" style={{animationDelay: `${idx * 40}ms`}}>
                       <ToolCard 
@@ -204,11 +206,10 @@ const App: React.FC = () => {
           )}
 
           {activeView === 'news' && <NewsSection currentLang={currentLang} news={news} loading={newsLoading} onRefresh={() => refreshNews(true)} lastUpdated={lastNewsFetch ? new Date(lastNewsFetch).toLocaleTimeString() : null} />}
-          {activeView === 'admin' && <AdminDashboard currentLang={currentLang} pendingTools={tools.filter(t => t.status === 'pending')} onApprove={(id) => setTools(prev => prev.map(t => t.id === id ? {...t, status: 'approved'} : t))} onReject={(id) => setTools(prev => prev.filter(t => t.id !== id))} />}
         </main>
       </div>
 
-      {isSubmitModalOpen && <SubmitToolModal currentLang={currentLang} onClose={() => setIsSubmitModalOpen(false)} onSubmit={(d) => setTools(prev => [{...d, id: Math.random().toString(), status: 'pending', reviews: [], clickCount: 0, favoritesCount: 0, rating: 0, reviewCount: 0, origin: 'Global', imageUrl: 'https://picsum.photos/400/250'}, ...prev])} />}
+      {isSubmitModalOpen && <SubmitToolModal currentLang={currentLang} onClose={() => setIsSubmitModalOpen(false)} onSubmit={(d) => setTools(prev => [{...d, id: Math.random().toString(), status: 'approved', reviews: [], clickCount: 0, favoritesCount: 0, rating: 0, reviewCount: 0, origin: 'Global', imageUrl: `https://picsum.photos/seed/${Math.random()}/400/250`}, ...prev])} />}
       {selectedTool && <ToolDetail currentLang={currentLang} tool={selectedTool} onClose={() => setSelectedTool(null)} onAddReview={(tid, r) => setTools(prev => prev.map(t => t.id === tid ? {...t, reviews: [{...r, id: Math.random().toString(), date: new Date().toLocaleDateString()}, ...t.reviews], reviewCount: t.reviewCount + 1} : t))} />}
     </div>
   );

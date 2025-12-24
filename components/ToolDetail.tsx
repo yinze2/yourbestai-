@@ -15,7 +15,7 @@ const ToolDetail: React.FC<ToolDetailProps> = ({ tool, onClose, onAddReview, cur
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState(5);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const t = translations[currentLang].detail;
+  const t = translations[currentLang];
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,9 +41,9 @@ const ToolDetail: React.FC<ToolDetailProps> = ({ tool, onClose, onAddReview, cur
             <div>
               <h2 className="text-2xl font-bold text-slate-900">{tool.name}</h2>
               <div className="flex items-center text-sm text-slate-500">
-                <span>{tool.category}</span>
+                <span>{(t.categoryNames as any)[tool.category] || tool.category}</span>
                 <span className="mx-2">•</span>
-                <span className="text-amber-500 font-bold">★ {tool.rating} ({tool.reviewCount} {t.totalReviews})</span>
+                <span className="text-amber-500 font-bold">★ {tool.rating} ({tool.reviewCount} {t.detail.totalReviews})</span>
               </div>
             </div>
           </div>
@@ -58,17 +58,16 @@ const ToolDetail: React.FC<ToolDetailProps> = ({ tool, onClose, onAddReview, cur
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2 space-y-8">
               <section>
-                <h3 className="text-xl font-bold mb-4">{t.about} {tool.name}</h3>
+                <h3 className="text-xl font-bold mb-4">{t.detail.about} {tool.name}</h3>
                 <p className="text-slate-600 leading-relaxed text-lg">{tool.description}</p>
                 <div className="mt-8 flex gap-4">
-                  <a href={tool.url} target="_blank" rel="noopener noreferrer" className="flex-1 bg-indigo-600 text-white text-center py-4 rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">{t.visit}</a>
-                  {tool.isVipEnabled && <button className="flex-1 bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all shadow-lg">{t.tryVip}</button>}
+                  <a href={tool.url} target="_blank" rel="noopener noreferrer" className="flex-1 bg-indigo-600 text-white text-center py-4 rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">{t.detail.visit}</a>
                 </div>
               </section>
 
               <section>
                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-xl font-bold">{t.reviews}</h3>
+                    <h3 className="text-xl font-bold">{t.detail.reviews}</h3>
                  </div>
                  <div className="space-y-6">
                    {tool.reviews.length > 0 ? (
@@ -82,29 +81,23 @@ const ToolDetail: React.FC<ToolDetailProps> = ({ tool, onClose, onAddReview, cur
                           {review.recommended && <div className="mt-4 flex items-center text-emerald-600 text-xs font-bold bg-emerald-50 w-fit px-2 py-1 rounded"><svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" /></svg>{currentLang === 'zh' ? '值得推荐' : 'Recommended'}</div>}
                        </div>
                      ))
-                   ) : <div className="text-center py-10 text-slate-400 italic">{t.noReviews}</div>}
+                   ) : <div className="text-center py-10 text-slate-400 italic">{t.detail.noReviews}</div>}
                  </div>
               </section>
             </div>
 
             <div className="space-y-8">
               <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100">
-                <h4 className="font-bold text-slate-900 mb-4">{t.leaveRating}</h4>
+                <h4 className="font-bold text-slate-900 mb-4">{t.detail.leaveRating}</h4>
                 <form onSubmit={handleReviewSubmit} className="space-y-4">
                   <div className="flex gap-2 mb-2">
                     {[1, 2, 3, 4, 5].map(star => (
                       <button key={star} type="button" onClick={() => setNewRating(star)} className={`text-2xl transition-transform hover:scale-125 ${newRating >= star ? 'text-amber-400' : 'text-slate-300'}`}>★</button>
                     ))}
                   </div>
-                  <textarea required className="w-full p-4 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none h-32" placeholder={t.experience} value={newComment} onChange={e => setNewComment(e.target.value)} />
-                  <button disabled={isSubmitting} className="w-full bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-slate-800 disabled:opacity-50 transition-all">{isSubmitting ? t.analyzing : t.post}</button>
+                  <textarea required className="w-full p-4 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none h-32" placeholder={t.detail.experience} value={newComment} onChange={e => setNewComment(e.target.value)} />
+                  <button disabled={isSubmitting} className="w-full bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-slate-800 disabled:opacity-50 transition-all">{isSubmitting ? t.detail.analyzing : t.detail.post}</button>
                 </form>
-              </div>
-
-              <div className="bg-indigo-600 rounded-3xl p-6 text-white shadow-xl shadow-indigo-100">
-                <h4 className="font-bold text-lg mb-2">{t.saveOn} {tool.name}</h4>
-                <p className="text-indigo-100 text-sm mb-6">{t.vipPromo}</p>
-                <button className="w-full bg-white text-indigo-600 font-bold py-3 rounded-xl hover:bg-indigo-50 transition-colors">{t.upgrade}</button>
               </div>
             </div>
           </div>
