@@ -7,6 +7,8 @@ export type Category =
   | 'Medical' | 'Agent Frameworks' | 'Character & Social' | 'Developer Tools'
   | 'Gaming AI' | 'Hardware AI' | 'Enterprise AI';
 
+export type ForumCategory = 'General' | 'Academic' | 'Developer' | 'Creative' | 'Industry';
+
 export interface Review {
   id: string;
   user: string;
@@ -34,6 +36,22 @@ export interface AITool {
   status: 'approved' | 'pending';
   submittedAt?: string;
   origin: 'Global' | 'China';
+}
+
+export interface AIForum {
+  id: string;
+  name: string;
+  description: string;
+  category: ForumCategory;
+  url: string;
+  imageUrl: string;
+  rating: number;
+  reviewCount: number;
+  clickCount: number;
+  favoritesCount: number;
+  origin: 'Global' | 'China';
+  tags: string[];
+  status: 'approved' | 'pending';
 }
 
 export interface NewsItem {

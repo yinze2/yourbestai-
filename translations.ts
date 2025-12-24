@@ -3,10 +3,24 @@ export const translations = {
   en: {
     nav: {
       explore: "Explore Tools",
+      forums: "AI Forums",
       submit: "Submit Tool",
       admin: "Admin",
       news: "AI News",
       login: "Log In"
+    },
+    forum: {
+      title: "Global AI Hubs",
+      subtitle: "Discover where the AI community gathers. From hardcore dev logs to creative prompts.",
+      ranking: "Hub Ranking",
+      categories: {
+        'All': 'All Forums',
+        'General': 'General Discussions',
+        'Academic': 'Academic & Research',
+        'Developer': 'Developer Hubs',
+        'Creative': 'AI Art & Creativity',
+        'Industry': 'Enterprise & Industry'
+      }
     },
     news: {
       title: "AI Trends & News",
@@ -49,7 +63,7 @@ export const translations = {
       title: "Discover the Future of",
       titleAccent: "AI Tools",
       subtitle: "The most comprehensive AI directory on the planet. Ranked by real user data.",
-      placeholder: "Search by tool name, purpose, or task...",
+      placeholder: "Search by name, purpose, or task...",
       aiSuggest: "AI Help",
       aiAssistant: "AI Assistant Recommendation:",
       all: "All Categories",
@@ -135,10 +149,24 @@ export const translations = {
   zh: {
     nav: {
       explore: "探索工具",
+      forums: "AI 论坛",
       submit: "提交工具",
       admin: "管理后台",
       news: "AI资讯",
       login: "登录"
+    },
+    forum: {
+      title: "全球 AI 社区合集",
+      subtitle: "寻找属于你的技术据点。从极客代码讨论到艺术灵感碰撞。",
+      ranking: "社区排行",
+      categories: {
+        'All': '全部论坛',
+        'General': '综合讨论',
+        'Academic': '学术与研究',
+        'Developer': '开发者中心',
+        'Creative': '艺术与创意',
+        'Industry': '行业应用'
+      }
     },
     categoryNames: {
       'General LLM': '通用大模型',
@@ -181,7 +209,7 @@ export const translations = {
       title: "发现未来的",
       titleAccent: "AI 工具箱",
       subtitle: "涵盖全球与中国最全的 AI 工具，由真实用户评分和行为驱动排序。",
-      placeholder: "搜索工具、用途或特定任务...",
+      placeholder: "搜索工具名称、用途或特定任务...",
       aiSuggest: "AI 助手",
       aiAssistant: "AI 助手建议：",
       all: "全部类别",
